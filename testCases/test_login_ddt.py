@@ -11,6 +11,7 @@ class Test_002_DDT_Login():
     path = ".//TestData/LoginData.xlsx"
     logger = LogGen.loggen()
 
+    @pytest.mark.regression
     def test_login_ddt(self, setup):
         self.logger.info("*************** Test_002_DDT_Login *****************")
         self.logger.info("*************** Verifying Login DDT Test ***************")
@@ -57,11 +58,11 @@ class Test_002_DDT_Login():
                 print(lst_status)
                 if "Fail" not in lst_status:
                     self.logger.info("****** Login DDT test passed *****")
-                    #   self.driver.close()
+                  #  self.driver.close()
                     assert True
                 else:
                     self.logger.error("****** Login DDT test failed *****")
-                    #  self.driver.close()
+                 #   self.driver.close()
                     assert False
 
                 self.logger.info("****** End of Login DDT Test *****")
