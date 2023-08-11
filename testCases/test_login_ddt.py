@@ -30,6 +30,7 @@ class Test_002_DDT_Login():
             self.exp = XLUtils.readData(self.path, 'Sheet1', r, 3)
             self.lp.setUserName(self.user)
             self.lp.setPassword(self.password)
+            self.driver.implicitly_wait(10)
             self.lp.clickLogin()
             time.sleep(5)
 
@@ -38,7 +39,7 @@ class Test_002_DDT_Login():
 
             if act_title == exp_title:
                 if self.exp == 'Pass':
-                    self.logger.info("**** Passed ****")
+                    self.logger.info("**** passed ****")
                     self.lp.clickLogout();
                     lst_status.append("Pass")
                 elif self.exp == 'Fail':
@@ -46,23 +47,22 @@ class Test_002_DDT_Login():
                     self.lp.clickLogout();
                     lst_status.append("Fail")
 
-            elif act_title != exp_title:
-                if self.exp == 'Pass':
-                    self.logger.info("**** failed ****")
-                    lst_status.append("Fail")
-                elif self.exp == "Fail":
-                    self.logger.info("**** passed ****")
-                    lst_status.append("Pass")
-            print(lst_status)
+                elif act_title != exp_title:
+                    if self.exp == 'Pass':
+                        self.logger.info("**** failed ****")
+                        lst_status.append("Fail")
+                    elif self.exp == "Fail":
+                        self.logger.info("**** passed ****")
+                        lst_status.append("Pass")
+                print(lst_status)
+                if "Fail" not in lst_status:
+                    self.logger.info("****** Login DDT test passed *****")
+                    #   self.driver.close()
+                    assert True
+                else:
+                    self.logger.error("****** Login DDT test failed *****")
+                    #  self.driver.close()
+                    assert False
 
-            if "Fail" not in lst_status:
-                self.logger.info("****** Login DDT test passed *****")
-                self.driver.close()
-                assert True
-            else:
-                self.logger.error("****** Login DDT test failed *****")
-                self.driver.close()
-                assert False
-
-            self.logger.info("****** End of Login DDT Test *****")
-            self.logger.info("****** Completed TC_LoginDDT_002 *****")
+                self.logger.info("****** End of Login DDT Test *****")
+                self.logger.info("****** Completed TC_Login DDT_002 *****")
